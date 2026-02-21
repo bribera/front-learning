@@ -84,7 +84,7 @@ export default function Home() {
               >
                 <img src="/images/girl.png" alt="Hero Image" className="h-full w-auto object-contain object-bottom" />
               </div>
-              <div className="absolute z-30 bottom-[196px] xl:bottom-[185px] right-[31px] xl:right-[118px]   lg:block opacity-20 md:opacity-0 lg:opacity-100 pointer-events-none">
+              <div className="absolute z-30 bottom-[196px] xl:bottom-[185px] right-[31px] xl:right-[118px] lg:block opacity-0 lg:opacity-100 pointer-events-none">
                 <img src="/images/popup.png" alt="Pop up Image" className="w-[490px] lg:w-[500px] lg:h-[290px] xl:w-[768px] xl:h-[509px] object-contain" />
               </div>
           </div>

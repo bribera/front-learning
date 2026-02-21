@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useParams } from "next/navigation"
+import {usePathname } from "next/navigation"
 import Link from "next/link"
 
 const menu = [
@@ -30,7 +30,7 @@ const Navbar = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const pathname = useParams()
+    const pathname = usePathname()
 
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Simulated authentication state
     const [user, setUser] = useState({
@@ -43,9 +43,11 @@ const Navbar = () => {
     const isHomePage = pathname === '/';
 
     const headerClasses = isHomePage 
-    ? 'relative z-20 px-[20px] py-[20px] md:px-[40px] md:py-[40px] lg:px-[90px] xl:pl-[121px] xl:pr-[126px] xl:py-[30px] text-black'
-    : 'absolute top-0 left-0 right-0 z-30 px-[20px] py-[20px] md:px-[40px] md:py-[40px] lg:px-[90px] xl:pl-[121px] xl:pr-[126px]' 
+    ? 'absolute top-0 left-0 right-0 z-20 px-[20px] py-[20px] md:px-[40px] md:py-[40px] lg:px-[90px] xl:pl-[121px] xl:pr-[126px] xl:py-[30px] bg-transparent text-white'
+    : 'absolute top-0 left-0 right-0 z-30 px-[20px] py-[20px] md:px-[40px] md:py-[40px] lg:px-[90px] xl:pl-[121px] xl:pr-[126px] bg-white text-[#5B5B5B]' 
 
+ 
+    
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     }
@@ -78,14 +80,14 @@ const Navbar = () => {
                 {/* logo */}
                 <Link href="/" >
                     <div className="w-[64px] xl:w-[114px] xl:h-[83px]">
-                        <img src="/images/logo.svg" alt="" className="object-contain w-full h-full" />
+                        <img src={`${isHomePage ? "/images/logo.svg" : "/images/logo-white.png"}`} alt="Logo" className="object-contain w-full h-full" />
                     </div>
                 </Link>
                 {/*menu desktop */}
                 <ul className='hidden lg:flex justify-between items-center font-normal gap-10 xl:gap-[80px]'>
                     {menu.map((item, index) => (
-                        <li key={index} className="text-[15px] xl:text-[22px] tracking-[2%] leading-auto font-light">
-                            <Link href={item.path} className={pathname === item.path ? "text-[#dbf9f7]" : "text-white hover:text-[#dbf9f7]"}>
+                        <li key={index} className="text-[15px] xl:text-[22px] tracking-[2%] leading-auto font-normal">
+                            <Link href={item.path} className={pathname === item.path ? "text-[#00A8B1]" : "text-[#5B5B5B] hover:text-[#00A8B1]"}>
                                 {item.link}
                             </Link>
                         </li>
@@ -96,10 +98,10 @@ const Navbar = () => {
                    {!isAuthenticated ? (
                     // Buttons de connexion avec menu déroulant
                     <div className="flex items-center gap-4">
-                        <button className="bg-white text-[#5B5B5B] font-medium text-[15px] xl:text-[22px] leading-auto tracking-[2%] px-10 py-3 xl:pt-[13px] xl:pb-[14px] xl:pl-[50px] xl:pr-[49px] hover:bg-[#00a8b1] rounded-[81px]">
+                        <button className={`${isHomePage ? "bg-white text-[#5B5B5B]" : "bg-[#00A8B1] text-white"} font-medium text-[15px] xl:text-[22px] leading-auto tracking-[2%] px-10 py-3 xl:pt-[13px] xl:pb-[14px] xl:pl-[50px] xl:pr-[49px] hover:bg-[#00a8b1] rounded-[81px]`}>
                         Login
                         </button>
-                        <button className="bg-[#FFFFFF]/30 font-medium text-white text-[15px] xl:text-[22px] leading-auto tracking-[2%] px-8 py-3 xl:pt-[12px] xl:pb-[15px] xl:pl-[39px] xl:pr-[34px] hover:bg-[#00a8b1]/30 rounded-[81px]">
+                        <button className={`${isHomePage ? "bg-[#FFFFFF]/30 text-white" : "bg-[#00A8B1]/30 text-black"} font-medium text-[15px] xl:text-[22px] leading-auto tracking-[2%] px-8 py-3 xl:pt-[12px] xl:pb-[15px] xl:pl-[39px] xl:pr-[34px] hover:bg-[#00a8b1]/30 rounded-[81px]`}>
                             Sign Up
                         </button>
                     </div>
@@ -183,9 +185,9 @@ const Navbar = () => {
                 {/* hamburger menu button */}
                 <button className="lg:hidden" onClick={toggleMenu} aria-label='Toggle-meenu'>
                     <div className="w-6 h-6 relative">
-                        <div className={`absolute top-0 left-0 w-full h-1 bg-white transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></div>
-                        <div className={`absolute top-2 left-0 w-full h-1 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-                        <div className={`absolute top-4 left-0 w-full h-1 bg-white transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></div>
+                        <div className={`absolute top-0 left-0 w-full h-1  transition-all duration-300 ${isHomePage ? "bg-white": "bg-[#00A8B1]"} ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></div>
+                        <div className={`absolute top-2 left-0 w-full h-1  transition-all duration-300 ${isHomePage ? "bg-white": "bg-[#00A8B1]"} ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+                        <div className={`absolute top-4 left-0 w-full h-1  transition-all duration-300 ${isHomePage ? "bg-white": "bg-[#00A8B1]"} ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></div>
                     </div>
                 </button>
             </div>

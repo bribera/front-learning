@@ -29,6 +29,62 @@ export function formatDateAgenda(dateString) {
   return `${day} ${month} ${year}`; 
 }
 
+export function timeLeft(dateStr) {
+  if (!dateStr) return ''
+
+
+  const now = new Date()
+  const target = new Date(dateStr)
+  const diffMs = target - now
+
+if (diffMs <= 0) return new Date(dateStr).toLocaleDateString('en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+})
+
+  // Date déjà passée
+  if (diffMs <= 0) return 'Offre expirée'
+
+  const diffSeconds = Math.floor(diffMs / 1000)
+  const diffMinutes = Math.floor(diffSeconds / 60)
+  const diffHours   = Math.floor(diffMinutes / 60)
+  const diffDays    = Math.floor(diffHours / 24)
+  const diffMonths  = Math.floor(diffDays / 30)
+  const diffYears   = Math.floor(diffDays / 365)
+
+  if (diffYears >= 1)   return `${diffYears} year${diffYears > 1 ? 's' : ''} `
+  if (diffMonths >= 1)  return `${diffMonths} month${diffMonths > 1 ? 's' : ''} `
+  if (diffDays >= 1)    return `${diffDays} day${diffDays > 1 ? 's' : ''} `
+  if (diffHours >= 1)   return `${diffHours} hour${diffHours > 1 ? 's' : ''} `
+  if (diffMinutes >= 1) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} `
+
+  return 'Moins d\'une minute left'
+}
+
+export function timeAgo(dateStr) {
+  if (!dateStr) return ''
+
+  const now = new Date()
+  const past = new Date(dateStr)
+  const diffMs = now - past  // ✅ inversé : now - past
+
+  const diffSeconds = Math.floor(diffMs / 1000)
+  const diffMinutes = Math.floor(diffSeconds / 60)
+  const diffHours   = Math.floor(diffMinutes / 60)
+  const diffDays    = Math.floor(diffHours / 24)
+  const diffMonths  = Math.floor(diffDays / 30)
+  const diffYears   = Math.floor(diffDays / 365)
+
+  if (diffYears >= 1)   return `${diffYears} year${diffYears > 1 ? 's' : ''} ago`
+  if (diffMonths >= 1)  return `${diffMonths} month${diffMonths > 1 ? 's' : ''} ago`
+  if (diffDays >= 1)    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+  if (diffHours >= 1)   return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
+  if (diffMinutes >= 1) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`
+
+  return 'Just now'
+}
+
 export async function fetchUrl(path, options = {}) {
   try {
     // Merge default and user options

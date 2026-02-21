@@ -13,9 +13,9 @@ const Footer = () => {
       </div>
       <div className="">
         <p className="text-[#B2B3CF] text-[18px] md:text-[26px] font-medium tracking-[4px]">Subscribe to get our Newsletter</p>
-        <div className="flex items-center justify-center mt-5 gap-5">
+        <div className="flex flex-col md:flex-row items-center justify-center mt-5 gap-5">
           <input type="email" placeholder="Your Email" className="bg-none text-[#83839A] text-[20px] placeholder:text-[20px] placeholder:text-[#83839A] px-[30px] py-[15px] rounded-[80px] focus:outline-none w-[350px] md:w-[400px] h-[60px] border border-[#83839A]" />
-          <button className="bg-[#49BBBD] text-white font-medium text-[22px] px-[34px] pt-[14px] pb-[13px] rounded-[60px] hover:bg-[#00a89c]">Subscribe</button>
+          <button className="bg-[#49BBBD] w-full md:w-auto text-white font-medium text-[22px] px-[34px] pt-[14px] pb-[13px] rounded-[60px] hover:bg-[#00a89c]">Subscribe</button>
         </div>
       </div>
       <div className="pt-[96px]">

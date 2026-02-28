@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { fetchUrl, getStrapiMedia, optimizeCloudinaryUrl } from '../../config/api-config'
 
@@ -247,8 +246,7 @@ const CourseContents = ({ totalSections = 5, completedSections = 2 }) => {
 }
 
 // ── Composant principal ───────────────────────────────────────────────────────
-const Meeting = () => {
-    const searchParams = useSearchParams()
+const Meeting = ({ searchParams }) => {
     const meetingId = searchParams.get('meetingId') || '85 746 3214'
     const courseId = searchParams.get('courseId')
     const password = searchParams.get('password') || ''  // ← ajoute cette ligne

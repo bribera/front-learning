@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { fetchUrl, getStrapiMedia, optimizeCloudinaryUrl, timeAgo, } from '../../config/api-config'
 import qs from 'qs'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import OnlineTab from './Onligne';
 
     function StarIcon({ filled, size = 16 }) {
         return (
@@ -42,15 +43,13 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
         return Math.round(sum / reviews.length)
     }
 
-const Reviews = ( {reviews: reviewList = [] }) => {
+const Reviews = ( {reviews: reviewList = [], course }) => {
 
-    const tabs = ["Overview", "Curriculum", "Instructors", "Overview", "Reviews" ]
+    const tabs = ["Overview", "Curriculum", "Instructors", "Online", "Reviews" ]
     const REVIEWS_TAB_INDEX = tabs.length - 1  // = 4
     
     const [activeTab, setActiveTab] = useState(0)
-    activeTab === REVIEWS_TAB_INDEX
-    const [loading, setLoading] = useState(true)
-
+    // activeTab === REVIEWS_TAB_INDEX
     
     const displayReviews = (reviewList.length > 0 ? reviewList : STATIC_REVIEWS).slice(0, 2)
     
@@ -66,12 +65,12 @@ const Reviews = ( {reviews: reviewList = [] }) => {
     <div>
         <div className="w-full ">
         {/* Tabs */}
-        <div className="flex flex-wrap gap-[25px] lg:gap-[50px] mb-[83px]">
+        <div className="flex flex-wrap gap-[25px] 3xl:gap-[50px] mb-[83px]">
           {tabs.map((tab, i) => (
             <button
               key={i}
               onClick={() => setActiveTab(i)}
-              className={`px-[20px] lg:px-[50px] pt-[17px] pb-[16px] rounded-[12px] text-[14px] xl:text-[20px] font-bold  ${
+              className={`px-[20px] 3xl:px-[50px] pt-[17px] pb-[16px] rounded-[12px] text-[14px] xl:text-[20px] font-bold  ${
                 activeTab === i
                   ? "bg-[#49BBBD] text-white shadow-md"
                   : "bg-black/10 text-black/50  hover:border-teal-300 hover:text-teal-500"
@@ -83,6 +82,9 @@ const Reviews = ( {reviews: reviewList = [] }) => {
         </div>
 
         {/* Content Card */}
+        {/* online */}
+          {activeTab === 3 && <OnlineTab course={course} />}
+        {/* reviews */}
         {
             activeTab === REVIEWS_TAB_INDEX && (
                 <div className="bg-[#9DCCFF]/30 rounded-2xl pt-[50px] pl-[47.35px] pr-[50px] pb-[53px] w-full">

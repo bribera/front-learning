@@ -44,7 +44,7 @@ export default function Home() {
     <div className="">
       <section>
         <div className="relative w-full h-screen min-h-[848px] max-h-[1118px] overflow-hidden">
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 pt-[19px]">
             <img src="/images/header.png" alt="Hero Image" className="w-full h-full" />
           </div>
           <div className="absolute inset-0 z-10 flex items-center  px-8 lg:pl-[100px] lg:pr-[100px] 3xl:pl-[140px] px-8 3xl:pr-[118px] overflow-hidden">

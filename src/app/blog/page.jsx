@@ -1,6 +1,6 @@
 'use client'
 import React, {Children, useEffect, useState } from 'react'
-import {getStrapiMedia, optimizeCloudinaryUrl} from "../../config/api-config"
+import {fetchUrl, getStrapiMedia, optimizeCloudinaryUrl} from "../../config/api-config"
 import Link from 'next/link'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import MarketingArticles from '../../components/blog/MarketingArticles'
@@ -33,19 +33,11 @@ const page = ({currentBlogId = 1}) => {
 
    const fetchRelatedBlogs = async (currentBlogId, limit = 10) => {
     try {
-        const res = await fetch(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blogs?populate=*&filters[id][$ne]=${currentBlogId}&pagination[limit]=${limit}&sort=createdAt:desc`,
-        {
-            next: { revalidate: 60 }, // Revalidation toutes les 60 secondes
-            cache: "no-store"
-        }
-        )
+        const res = await fetchUrl(
+        `/articles?populate=*&filters[id][$ne]=${currentBlogId}&pagination[limit]=${limit}&sort=createdAt:desc`)
         
-        if (!res.ok) throw new Error('Failed to fetch related blogs')
-        
-        const data = await res.json()
-        console.log(data)
-        return data.data
+        console.log(res, 'blog page')
+        return res.data
     } catch (error) {
         console.error('Error fetching related blogs:', error)
         return []
@@ -81,21 +73,24 @@ const page = ({currentBlogId = 1}) => {
         }
     }
 
-    const extractTextFromBlocks = (blocks) => {
-    if (!blocks || !Array.isArray(blocks)) return ''
-    
-    return blocks
-        .map(block => {
-            if (block.type === 'paragraph') {
-                return block.children
-                    .map(child => child.text || '')
-                    .join('')
-            }
-            return ''
-        })
-        .join(' ')
-        .trim()
-    }
+   const extractText = (content) => {
+        if (!content) return '';
+        // Si c'est déjà une string
+        if (typeof content === 'string') return content.replace(/<[^>]*>/g, '');
+        // Si c'est un tableau de blocs Strapi (rich text)
+        if (Array.isArray(content)) {
+            return content
+            .map(block => {
+                if (block.type === 'paragraph' && Array.isArray(block.children)) {
+                return block.children.map(child => child.text || '').join('');
+                }
+                return '';
+            })
+            .join(' ')
+            .trim();
+        }
+        return '';
+    }; 
 
 
     const formatDate = (dateString) => {
@@ -164,7 +159,7 @@ const page = ({currentBlogId = 1}) => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[36px] lg:gap-[76px]">
                     {listimages.map((item) => (
-                        <div key={item.id} className="w-full h-full xl:w-[356px] xl:h-[327px] rounded-[20px] bg-[#9DCCFF]/20">
+                        <div key={item.id} className="w-full h-full 3xl:w-[356px] 3xl:h-[327px] rounded-[20px] bg-[#9DCCFF]/20">
                             <img src={item.image} alt={`blog ${item.id}`} className="w-full h-full object-cover object-center rounded-[20px]" />
                         </div>
                     ))}
@@ -178,11 +173,11 @@ const page = ({currentBlogId = 1}) => {
                 <h2 className="text-[24px] pb-[41px] text-black xl:text-[30px] font-bold leading-auto">Related blog</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2  gap-[36px] lg:gap-[76px]">
                     {currentBlogs.map((blog) => {
-                        const coverImageUrl = blog.coverImage.url
+                        const coverImageUrl = blog.image.url
                         const imageUrl = blog.image.url;
                         const author = blog.author
                         return (
-                            <div key={blog.id} className="w-full h-full xl:w-[356px] xl:h-[327px] rounded-[20px] bg-white pl-[33.36px] pr-[32.65px] pt-[59.62px] pb-[64.12px] overflow-hidden shadow-[0px_10px_60px_rgba(38,45,118,0.08)]">
+                            <div key={blog.id} className="w-full h-full 3xl:w-[356px] 3xl:h-[327px] rounded-[20px] bg-white pl-[33.36px] pr-[32.65px] pt-[59.62px] pb-[64.12px] overflow-hidden shadow-[0px_10px_60px_rgba(38,45,118,0.08)]">
                                 <div className="pb-[12.38px]">
                                     <img src={optimizeCloudinaryUrl(getStrapiMedia(coverImageUrl))}
                                         alt={blog.title}
@@ -190,7 +185,7 @@ const page = ({currentBlogId = 1}) => {
                                     />
                                 </div>
                                <div className="">
-                                    <h3 className='pb-[14.63px] text-[22px] xl:text-[26px] leading-[180%] font-medium text-[#252641]'>{blog.title}</h3>
+                                    <h3 className='pb-[14.63px] text-[22px] xl:text-[26px] leading-[180%] font-medium text-[#252641] line-clamp-2'>{blog.title}</h3>
                                     <div className="pl-[23.63px] flex items-center">
                                         {
                                             blog?.image ? (
@@ -207,29 +202,15 @@ const page = ({currentBlogId = 1}) => {
                                             )
                                         }
                                         <div className="pl-[16.88px]">
-                                             <p className="text-sm xl:text-[18px] font-medium text-black leading-auto tracking-[2%]">
+                                             <p className="text-sm xl:text-[18px] font-medium text-black leading-auto tracking-[2%] ">
                                                 {blog.author || 'Anonymous'}
                                             </p> 
                                         </div>
                                     </div>
-                                    <div className="">
-                                        <BlocksRenderer
-                                            content={blog.description}
-                                            blocks={{
-                                                // Personnalisation optionnelle
-                                                paragraph: ({ children }) => <p className="pb-[44.99px] pt-[23.61px] text-[20px] line-clamp-2 overflow-hidden ">{children}</p>,
-                                            }}
-
-                                        />
-                                        {/* {blog.description && (
-                                            <p className="leading-[180%] tracking-[2%] pb-[44.99px] pt-[23.61px] text-[20px] line-clamp-2 overflow-hidden text-ellipsis">
-                                                {typeof blog.description === 'string' 
-                                                    ? blog.description 
-                                                    : extractTextFromBlocks(blog.description)
-                                                }
-                                            </p>
-                                        )} */}
-                                    </div>
+                                 
+                                    <p className="text-[20px] pt-[23.61px] mb-[44.99px] line-clamp-2">
+                                        {extractText(blog.content)}
+                                    </p>
                                     <div className=" flex justify-between">
                                         <div className="">
                                             <Link href={`/blog/${blog.slug}`} className='underline'>Read more</Link>

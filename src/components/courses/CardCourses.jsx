@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import { getStrapiMedia, optimizeCloudinaryUrl } from '../../config/api-config'
 import Link from 'next/link';
 

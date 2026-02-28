@@ -1,6 +1,6 @@
-import Footer from "../components/landing/Footer";
 import "./globals.css";
-import Navbar from "@/src/components/Navbar"
+import LayerWrapper from '@/src/components/LayerWrapper'
+import { AuthProvider } from '../hooks/useAuth'
 
 
 export const metadata = {
@@ -19,9 +19,11 @@ export default function RootLayout({ children }) {
       <body
         className="font-poppins"
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <LayerWrapper>
+          {children}
+          </LayerWrapper >
+        </AuthProvider>
       </body>
     </html>
   );

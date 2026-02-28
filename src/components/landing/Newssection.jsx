@@ -18,14 +18,9 @@ export default function NewsSection() {
   const fetchNews = async () => {
     try {
       setLoading(true);
-      const data = await fetchUrl('/articles?populate=*');
-     
-      console.log('Données des actualités:', data);
-      
-      setNews(data.data || data);
-      
-      console.log('Articles définis dans l’état:', data.data || data); 
-      
+      const data = await fetchUrl('/articles?populate=*');   
+      console.log(data.data[0])
+      setNews(data.data || data);      
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -35,7 +30,6 @@ export default function NewsSection() {
     }
   };
 
-  console.log('État des actualités:', news);
 
   if (loading) {
     return (

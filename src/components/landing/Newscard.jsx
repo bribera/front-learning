@@ -12,26 +12,43 @@ export default function NewsCard({ article, variant = 'small' }) {
   const category = article.category?.name || 'News';
   const title = article.title || '';
   
-  // Tronquer le contenu pour l'affichage
-  const truncateContent = (text, maxLength) => {
-    if (!text) return '';
-    // Enlever les balises HTML si présentes
-    const plainText = text.replace(/<[^>]*>/g, '');
-    return plainText.length > maxLength 
-      ? plainText.substring(0, maxLength) + '...' 
-      : plainText;
-  };
+  const extractText = (content) => {
+  if (!content) return '';
+  // Si c'est déjà une string
+  if (typeof content === 'string') return content.replace(/<[^>]*>/g, '');
+  // Si c'est un tableau de blocs Strapi (rich text)
+  if (Array.isArray(content)) {
+    return content
+      .map(block => {
+        if (block.type === 'paragraph' && Array.isArray(block.children)) {
+          return block.children.map(child => child.text || '').join('');
+        }
+        return '';
+      })
+      .join(' ')
+      .trim();
+  }
+  return '';
+};
+
   
-  const description = truncateContent(article.content, variant === 'large' ? 150 : 100);
-  const link = article.slug ? `/news/${article.slug}` : '#';
+  // Tronquer le contenu pour l'affichage
+  // const truncateContent = (content, maxLength) => {
+  //   const text = extractText(content);
+  //   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  // };
+  
+  // const description = truncateContent(article.content, variant === 'large' ? 150 : 100);
+  const content = extractText(article.content);
+  const link = article.slug ? `/blog/${article.slug}` : '#';
   const imageAlt = article.image?.alternativeText || title;
 
   if (variant === 'large') {
     return (
 
-      <Link href={`/blog/${article.slug}`}>
+      <Link href={`${link}`}>
         <article className=" overflow-hidden flex flex-col h-full">
-          <div className="relative w-full h-72 lg:w-[350px] lg:h-auto 3xl:w-[640px] 3xl:h-[360px] rounded-[20px] overflow-hidden group">
+          <div className="relative w-full h-72 lg:w-[350px] xl:w-[500px] lg:h-auto xl:h-[200px] 3xl:w-[640px] 3xl:h-[360px] rounded-[20px] overflow-hidden group">
             {optimizedImageUrl ? (
               <img
                 src={optimizedImageUrl}
@@ -44,22 +61,21 @@ export default function NewsCard({ article, variant = 'small' }) {
             )}
           </div>
           
-          <div className="pt-[40px] flex flex-col flex-grow">
-            <div className="mb-[20px] bg-[#49BBBD] text-white px-4 py-2 rounded-[80px] text-[20px] font-semibold uppercase tracking-wider w-fit">
+          <div className="pt-[20px] 3xl:pt-[40px] flex flex-col flex-grow">
+            <div className="mb-2 3xl:mb-[20px] bg-[#49BBBD] text-white px-4 py-2 rounded-[80px] 3xl:text-[20px] font-semibold uppercase tracking-wider w-fit">
               {category}
             </div>
-            <h3 className="text-[22px] xl:text-[26px] font-medium text-[#252641] mb-5 leading-[180%] line-clamp-3 3xl:line-clamp-none">
+            <h3 className="text-[22px] 3xl:text-[26px] font-medium text-[#252641] mb-2 3xl:mb-5 leading-[180%] line-clamp-3 3xl:line-clamp-none">
               {title}
             </h3>
-            <p className="text-[#696984] text-[18px] xl:text-[20px] leading-[180%] mb-[28px] flex-grow tracking-[2%] line-clamp-3">
-              {description}
+            <p className="text-[#696984] text-[18px] 3xl:text-[20px] leading-[180%] mb-[14px] 3xl:mb-[28px] flex-grow tracking-[2%] line-clamp-2">
+              {content}
             </p>
-            <Link 
-              href={link} 
-              className="text-[#696984] underline font-normal text-sm md:text-[20px] leading-[180%] tracking-[2%] inline-flex items-center group/link"
+            <p  
+              className="text-[#696984] underline font-normal text-sm 3xl:text-[20px] leading-[180%] tracking-[2%] inline-flex items-center group/link"
             >
               Read more
-            </Link>
+            </p>
           </div>
         </article>
       </Link>
@@ -67,10 +83,10 @@ export default function NewsCard({ article, variant = 'small' }) {
   }
 
   return (
-    <Link className={`/blog/${article.slug}`}>   
+    <Link href={`${link}`}>   
       <article className=" overflow-hidden ">
         <div className="flex gap-4 ">
-          <div className="relative items-stretch w-36 h-[150px] 3xl:w-[280px] lg:w-[121px] lg:h-auto xl:h-[200px] flex-shrink-0 rounded-[20px] overflow-hidden group">
+          <div className="relative items-stretch w-36 h-[150px] 3xl:w-[280px] 3xl:h-[200px] lg:w-[121px] lg:h-auto xl:w-[222px] xl:h-[135px] flex-shrink-0 rounded-[20px] overflow-hidden group">
             {optimizedImageUrl ? (
               <img
                 src={optimizedImageUrl}
@@ -90,7 +106,7 @@ export default function NewsCard({ article, variant = 'small' }) {
               {title}
             </h3>
             <p className="text-[#696984] tracking-[2%] text-sm lg:text-[16px] 3xl:text-[20px] leading-[180%] line-clamp-2">
-              {description}
+              {content}
             </p>
           </div>
         </div>

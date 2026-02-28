@@ -104,7 +104,7 @@ const page = () => {
     
       if (loading) {
         return (
-          <section className="bg-gray-50 py-16 px-8">
+          <section className="bg-gray-50 py-[143px] px-8">
             <div className="max-w-7xl mx-auto">
               <div className="text-center py-16">
                 <div className="inline-block w-12 h-12 border-4 border-gray-300 border-t-cyan-500 rounded-full animate-spin mb-4"></div>
@@ -143,7 +143,7 @@ const page = () => {
                 }
             </div>
         </section>
-
+                {/* recommande for you */}
         <section>
             <div className="bg-[#9DCCFF]/20 px-10 lg:px-[90px] xl:pl-[139px] xl:pr-[135px] pb-[113px] pt-[91px]">
                 <div className="flex justify-between items-center pb-[67px]">

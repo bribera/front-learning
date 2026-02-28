@@ -64,3 +64,29 @@ body {
 .buenos {
   font-family: "Buenos Aires", sans-serif;
 }
+
+/* checkout card */
+
+@layer components {
+  .input-field {
+    @apply w-full px-5.25 pt-4 pb-4.25 text-[15px] border border-[#9D9B9B] rounded-[10px] bg-white text-[#9D9B9B]
+           focus:outline-none focus:ring-2 focus:ring-[#9D9B9B]/30 focus:border-[#9D9B9B]
+           xl:placeholder:text-[#9D9B9B] placeholder:text-[15px] transition-all duration-150;
+  }
+  
+  .card {
+    @apply bg-white rounded-[20px] shadow-[0px_10px_60px_rgba(38,45,118,0.08)] px-[30px] py-[20px] xl:pt-[50px] xl:pb-[53px] xl:pl-[50px] xl:pr-[70px];
+  }
+
+  .promo-card {
+    @apply relative overflow-hidden rounded-2xl cursor-pointer ;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}

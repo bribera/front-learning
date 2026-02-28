@@ -87,11 +87,14 @@ export function timeAgo(dateStr) {
 
 export async function fetchUrl(path, options = {}) {
   try {
+    const isGet = !options.method || options.method === 'GET'
     // Merge default and user options
     const mergedOptions = {
-      next: { revalidate: 60 },
+     // ✅ next.revalidate uniquement pour les GET
+      ...(isGet ? { next: { revalidate: 60 } } : {}),
       headers: {
         "Content-Type": "application/json",
+        ...options.headers,
       },
       ...options,
     };
@@ -110,11 +113,10 @@ export async function fetchUrl(path, options = {}) {
     return data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-        `Veuillez vérifier si votre serveur est en cours d'exécution et que vous avez configuré tous les jetons requis.`
-    );
+    throw error;
   }
 }
+
 
 // export function optimizeCloudinaryUrl(url, width = 800, quality = 'auto:best') {
 //   return url.replace('/upload/', `/upload/q_${quality},f_auto,w_${width}/`);

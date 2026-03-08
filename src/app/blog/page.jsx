@@ -36,7 +36,6 @@ const page = ({currentBlogId = 1}) => {
         const res = await fetchUrl(
         `/articles?populate=*&filters[id][$ne]=${currentBlogId}&pagination[limit]=${limit}&sort=createdAt:desc`)
         
-        console.log(res, 'blog page')
         return res.data
     } catch (error) {
         console.error('Error fetching related blogs:', error)
@@ -138,7 +137,7 @@ const page = ({currentBlogId = 1}) => {
                     <p className=" text-[18px] xl:text-[24px] font-normal text-black leading-auto">By Themadbrains in <span className='text-[#49BBBD] font-bold'>inspiration</span></p>
                     <h2 className="pt-[24px] text-[32px] text-[#2F327D] xl:text-[44px] font-semibold leading-auto">Why Swift UI Should Be on the Radar of Every Mobile Developer</h2>
                     <p className="pt-[14px] pb-[25px] text-[18px] xl:text-[24px] text-[#696984] leading-[180%] tracking-[2%]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempos Lorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                    <Link href="/blog" className="">
+                    <Link href="/courses" className="">
                         <div className="bg-[#49BBBD] w-fit px-10 pt-[20px] pb-[12px] rounded-[12px] text-white font-bold text-[16px] xl:text-[18px] hover:underline">
                             Start learning now
                         </div>

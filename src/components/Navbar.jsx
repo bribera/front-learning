@@ -133,7 +133,7 @@ const Navbar = () => {
                         // Menu utilisateur connecté
                         <div className="relative">
                             <button onClick={toggleUserMenu} className="flex items-center gap-2  text-[#5B5B5B] font-medium text-[16px] xl:text-[22px] leading-auto tracking-[2%] px-4 py-2 rounded-full hover:bg-[#00a8b1]">
-                                <div className="w-12 h-12 xl:w-[w-[63px] xl:h-[63px] rounded-full overflow-hidden border-2 border-white/30">
+                                <div className="w-12 h-12 xl:w-[63px] xl:h-[63px] rounded-full overflow-hidden border-2 border-white/30">
                                     {
                                         user.avatar?.url ?
                                         (

@@ -40,6 +40,7 @@ const interfaces =[
 ]
 
 export default function Home() {
+  console.log("STRAPI URL:", process.env.NEXT_PUBLIC_STRAPI_API_URL);
   return (
     <div className="">
       <section>
@@ -179,7 +180,7 @@ export default function Home() {
 
       {/* features */}
       <section className="pb-[57px] px-[40px] 3xl:pl-[150px] 3xl:pr-[170px]">
-        <div className="relative h-[1344.97px]">
+        <div className="relative h-[1344.97px] xl:h-[1645px]">
           <div className="mb-[100px] flex flex-col justify-center items-center">
             <h5 className="text-[36px] leading-[180%] font-bold text-[#2F327]">Our <span className="text-[#00CBB8]">Features</span></h5>
             <p className="text-[#696984] text-[20px] lg:text-[24px] font-normal text-center">This very extraordinary feature, can make learning activities more efficient</p>
@@ -206,14 +207,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="lg:h-[611px] absolute -z-1 lg:top-[900px] 3xl:top-[810px] lg:left-[69px] lg:right-[71.8px] flex gap-[100px] lg:gap-[21px] 3xl:gap-[236px] items-center">
+          <div className="pt-[136px] absolute -z-1 lg:top-[900px] 3xl:top-[810px] lg:left-[69px] lg:right-[71.8px] flex gap-[100px] lg:gap-[21px] 3xl:gap-[236px] items-center">
             <div className="flex-1"> 
               <h5 className="text-[24px] lg:text-[40px] font-semibold leading-[160%] text-[#2F327D]"><span className="text-[#00CBB8]">Tools </span>For Teachers And Learners</h5>
-              <p className="text-[18px] lg:text-[22px] text-[#696984] font-normal leading-[180%] tracking-[2%]">Class has a dynamic set of teaching tools built to be deployed and used during class.
+              <p className="w-[90%] text-[18px] lg:text-[22px] text-[#696984] font-normal leading-[180%] tracking-[2%]">Class has a dynamic set of teaching tools built to be deployed and used during class.
                 Teachers can handout assignments in real-time for students to complete and submit.
               </p>
             </div>
-            <div className=" flex-1 h-[400px] 3xl:w-[627.2px] 3xl:h-[611px]">
+            <div className=" flex-1 h-[400px] lg:h-auto 3xl:w-[627.2px] ">
               <img src="/images/featgirl.png" alt="Feature girl" className="w-full h-full object-cover object-center" />
             </div>
           </div>
@@ -232,7 +233,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="pt-[90px] items-stretch lg:pt-[175.75px] flex flex-col md:flex-row items-center gap-[90px] lg:gap-[133.94px]">
+            <div className="pt-[90px]  lg:pt-[175.75px] flex flex-col md:flex-row items-center gap-[90px] lg:gap-[133.94px]">
               <div className="w-full">
                 <h5 className=" lg:w-[58.22%] text-[24px] lg:text-[32px] pb-[20px] font-semibold leading-[160%] text-[#2F327D]"><span className="text-[#00CBB8]">Class Management</span> Tools for Educators</h5>
                 <p className="text-[18px] lg:text-[22px] text-[#696984] font-normal leading-[180%] tracking-[2%]">

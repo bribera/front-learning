@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Create1 from '../../../../../components/courses/Create1'
 
 const page = () => {
   return (
     <div>
-      <Create1 />
+      <Suspense>
+       <Create1 />
+      </Suspense>
     </div>
   )
 }

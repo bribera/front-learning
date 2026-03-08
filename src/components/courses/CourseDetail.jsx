@@ -300,39 +300,39 @@ const CourseDetail = () => {
                             </p>
 
                             {/* Divider */}
-                            <div className="border-t border-[#696984 my-[24px]" />
+                            <div className="border-t border-[#696984] my-[24px]" />
 
                             {/* Share */}
                             <p className="text-[18px] 3xl:text-[30px] font-semibold tracking-[2%] pb-[16px]">Share this course</p>
                             <ul className='flex gap-[16px] items-center'>
                                 <Link href={course.tweeter || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center rounded-full hover:bg-[#49BBBD]/20 transition-colors'>
-                                        <img src="/images/twitter.png" alt="twitter" className="" />
+                                        <img src="/images/twitter.svg" alt="twitter" className="" />
                                     </li>
                                 </Link>
                                 <Link href={course.facebook || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center bg-[#696984] rounded-full hover:bg-[#49BBBD] transition-colors'>
-                                        <img src="/images/facebook.png" alt="facebook" />
+                                        <img src="/images/facebook.svg" alt="facebook" />
                                     </li>
                                 </Link>
                                 <Link href={course.youtube || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center bg-[#FF0000] rounded-full hover:opacity-80 transition-opacity'>
-                                        <img src="/images/youtube.png" alt="youtube" />
+                                        <img src="/images/youtube.svg" alt="youtube" />
                                     </li>
                                 </Link>
                                 <Link href={course.instagram || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center bg-[#696984] rounded-full hover:bg-[#49BBBD] transition-colors'>
-                                        <img src="/images/instagram.png" alt="instagram" />
+                                        <img src="/images/instagram.svg" alt="instagram" />
                                     </li>
                                 </Link>
                                 <Link href={course.telegram || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center bg-[#696984] rounded-full hover:bg-[#49BBBD] transition-colors'>
-                                        <img src="/images/telegram.png" alt="telegram" />
+                                        <img src="/images/telegram.svg" alt="telegram" />
                                     </li>
                                 </Link>
                                 <Link href={course.whatsapp || '#'}>
                                     <li className='w-[32px] h-[32px] flex items-center justify-center bg-[#696984] rounded-full hover:bg-[#49BBBD] transition-colors'>
-                                        <img src="/images/whatsapp.png" alt="whatsapp" />
+                                        <img src="/images/whatsapp.svg" alt="whatsapp" />
                                     </li>
                                 </Link>
                             </ul>

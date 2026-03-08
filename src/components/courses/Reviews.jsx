@@ -51,7 +51,9 @@ const Reviews = ( {reviews: reviewList = [], course }) => {
     const [activeTab, setActiveTab] = useState(0)
     // activeTab === REVIEWS_TAB_INDEX
     
-    const displayReviews = (reviewList.length > 0 ? reviewList : STATIC_REVIEWS).slice(0, 2)
+    // const displayReviews = (reviewList.length > 0 ? reviewList : STATIC_REVIEWS).slice(0, 2)
+    
+    const displayReviews = reviewList.slice(0, 2)
     
     const ratingBreakdown = [5, 4, 3, 2, 1].map((star) => ({
         stars: star,

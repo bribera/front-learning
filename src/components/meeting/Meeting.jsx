@@ -343,7 +343,7 @@ const Meeting = ({ searchParams }) => {
                     {/* Header meeting */}
                     <div className="flex items-center gap-[50px] w-full">
                         <div className="w-[50px] h-[50px] bg-[#49BBBD] flex items-center justify-center text-white">
-                            <img src="/images/left.png" alt="" />
+                            <img src="/images/back.png" alt="" />
                         </div>
                         <div className="flex items-center w-full justify-between pl-[35px] py-[35px] pr-[61px] mb-[30px] rounded-[26px] bg-white">
                             <div className="flex items-center gap-[12px]">

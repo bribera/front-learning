@@ -8,7 +8,7 @@ export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
   
   // Ajoutez ici les routes où vous voulez CACHER le Navbar et le Footer
-  const excludedRoutes = ["/login", "/register", "/admin", "/meeting"];
+  const excludedRoutes = ["/login", "/register", "/admin", "/meeting", '/courses/calendar/create/create1', '/courses/calendar/create/create2', '/courses/calendar/view', '/courses/calendar/full'];
   
   // Vérifie si la route actuelle est dans la liste des exclusions
   const showLayout = !excludedRoutes.includes(pathname);

@@ -121,7 +121,7 @@ const page = () => {
             <div className="pb-[50px] pt-[50px] flex justify-between items-center">
                 <p className="text-[20px] lg:text-[36px] font-semibold text-[#252641]">Welcome back, ready for your next lesson?</p>
                 <div className="">
-                    <Link href="/" className='text-[16px] lg:text-[20px] font-bold text-[#49BBBD]'>View history</Link>
+                    <Link href="/courses/calendar/create/" className='text-[16px] lg:text-[20px] font-bold text-[#49BBBD]'>View history</Link>
                 </div>
             </div>
             <div className="">
